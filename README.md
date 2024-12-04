@@ -119,22 +119,3 @@ docker logs nextcloud
 ```
 
 ---
-
-## 6. Optionnel : Notifications en cas d'erreur
-
-### a) Ajouter une notification par e-mail
-Vous pouvez ajouter une notification par e-mail si le transfert FTP échoue. Modifiez le script de cette manière :
-
-```bash
-if curl -T "$ARCHIVE_DIR/$ZIP_FILE" --user "$FTP_USER:$FTP_PASS" "$FTP_SERVER/$FTP_DIR/"; then
-    echo "Transfert réussi : $ZIP_FILE"
-else
-    echo "Erreur de transfert pour $ZIP_FILE" | mail -s "Erreur FTP" votre.email@example.com
-fi
-```
-
-Cela vous permettra d'être alerté en cas de problème avec le transfert FTP.
-
----
-
-Cette procédure vous permet de sauvegarder automatiquement le répertoire `toip` sur votre serveur Nextcloud et de transférer les fichiers compressés sur un serveur FTP à des intervalles réguliers.
