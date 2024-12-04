@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  nextcloud:
+    image: nextcloud
+    container_name: nextcloud
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - /srv/nextcloud/toip:/var/www/html/toip
+      - /srv/nextcloud/data:/var/www/html/data
+    environment:
+      MYSQL_PASSWORD: Nextcloud321.
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_HOST: db
+    networks:
+      - nextcloud_network
+
+  db:
+    image: mysql:5.7
+    container_name: nextcloud-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: Nextcloud321.
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - nextcloud_network
+
+volumes:
+  nextcloud_data:
+  db_data:
+
+networks:
+  nextcloud_network:
+    driver: bridge
